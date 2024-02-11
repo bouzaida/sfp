@@ -8,16 +8,31 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TabController extends AbstractController
 {
-    #[Route('/tab/{nb?5<\d+>}', name: 'app_tab')]
+    #[Route('/tab/{nb?5}', name: 'app_tab')]
     public function index($nb): Response
     {
         $notes = [];
         for ($i = 0; $i < $nb; $i++) {
-            $notes[] = rand(0, 20); // Use [] to append values to the array
+            $notes[] = rand(0, 20);
         }
 
         return $this->render('tab/index.html.twig', [
-            'notes' => $notes, // Remove single quotes to pass the array
+            'notes' => $notes,
+        ]);
+    }
+
+    #[Route('/tab/users', name: 'app.users')]
+    public function users(): Response
+
+    {
+        $users = [
+            ['FirstName' => 'Bouzaida', 'Name' => 'Souheil', 'Age' => '33'],
+            ['FirstName' => 'Pchikta', 'Name' => 'Awwa', 'Age' => '65'],
+            ['FirstName' => 'Balde', 'Name' => 'Diane', 'Age' => '43'],
+        ];
+
+        return $this->render('tab/users.html.twig', [
+            'users' => $users,
         ]);
     }
 }
